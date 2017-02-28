@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>New Tab</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+html, body {
+	height: 100%;
+	background-image: url("");
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-attachment: fixed;
+	background-size: cover;
+}
+.back {
+	height: 100%; 
+}
+.ment {
+	display: inline-table;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -85px;
+	margin-left: -280px;
+	width: 600px;
+	height: 100px;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+	font-size: 60px;
+}
+.geo {
+	display: inline-table;
+	position: absolute;
+	top: 10%;
+	left: 85%;
+	margin-top: -50px;
+	margin-left: -100px;
+	//width: 400px;
+	//height: 100px;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+	font-size: 16px;
+}
+.arrange {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.place {
+	display: table-cell;
+	text-align: center;
+	vertical-align: top;
+	horizontal-align: right;
+}
+</style>
+<script src="bgimage.js"></script>
+</head>
+ 
+<body>
+	<div class="back">
+		<div class="ment">
+			<p id="clock" class="arrange"></p>
+			<p><button id="request" type="button">request</button></p>
+		</div>
+		<div class="geo">
+			<p id="out" class="place"></p>
+		</div>
+	</div>
+</body>
+</html>
