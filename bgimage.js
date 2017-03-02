@@ -12,13 +12,20 @@ function windowLoaded(){
 		document.body.style.backgroundImage = "url('" + bgImg + "')";
 
 		document.getElementById('request').addEventListener('click',function () {
-			chrome.windows.create({ 
-				url: "https://nxtest.cloudapp.net/pop.html?id=" + tabId,
-				width:  400,
-				height: 400,
-				type: 'popup'
-			}, function(win) {
-				chrome.tabs.reload(tabId.id);
+			chrome.cookies.get({"url":"http://www.nexon.com", "name":"NPP"}, function(cookie) {
+				if(cookie.value) {
+					alert(cookie.value);
+				} else {
+					chrome.windows.create({ 
+						//url: "https://nxtest.cloudapp.net/pop.html?id=" + tabId,
+						url: "http://www.nexon.com",
+						width:  400,
+						height: 400,
+						type: 'popup'
+					}, function(win) {
+						chrome.tabs.reload(tabId.id);
+					});
+				}
 			});
 		});
 	});
