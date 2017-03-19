@@ -1,19 +1,24 @@
 {
-	"manifest_version": 2,
-	"name": "chrome extension sample",
-	"description": "chrome extension sample pabe",
-	"version": "1.0",
-
-	"offline_enabled": false,
-	"browser_action": {
-		"default_icon": "icon.png"
-	},
-	"background": { 
-		"scripts": ["background.js"],
-		"persistent": false
-	},
-	"chrome_url_overrides" : {
-		"newtab": "newtab.html"
-	},
-	"permissions": ["tabs", "geolocation", "cookies", "*://*.nexon.com/"]
+  "manifest_version": 2,
+  "name": "chrome extension sample",
+  "description": "chrome extension sample page",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "geolocation",
+    "cookies",
+    "*://*.nexon.com/"
+  ]
 }
