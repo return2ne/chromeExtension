@@ -41,8 +41,6 @@ html, body {
 	left: 85%;
 	margin-top: -50px;
 	margin-left: -100px;
-	//width: 400px;
-	//height: 100px;
 	background-color: rgba(0, 0, 0, 0.2);
 	color: white;
 	font-size: 16px;
@@ -64,6 +62,11 @@ html, body {
  
 <body>
 	<div class="back">
+		<div class="audio">
+			<audio id="audioPlayer" controls>
+  				<source id="audioSource" src="" type="audio/mpeg">
+			</audio>
+		</div>
 		<div class="ment">
 			<p id="clock" class="arrange"></p>
 			<p><button id="request">request</button></p>
@@ -72,11 +75,6 @@ html, body {
 			<p id="out" class="place"></p>
 		</div>
 	</div>
-	<audio id="myAudio">HTML5 audio not supported</audio>
-	<button id="playAudio">Play</button>
-	<button id="rewindAudio">Rewind</button>
-	<button id="forwardAudio">Fast forward</button>
-	<button id="restartAudio">Restart</button>
 
 </body>
 </html>

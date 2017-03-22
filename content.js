@@ -1,6 +1,4 @@
 function setButtonListener() {
-    var oAudio = document.getElementById('myAudio');
-    var btnPlayAudio = document.getElementById('playAudio');
 
     document.getElementById('request').addEventListener('click', function () {
         chrome.cookies.get({"url": "http://www.nexon.com", "name": "NPP"}, function (cookie) {
@@ -19,39 +17,44 @@ function setButtonListener() {
             }
         });
     });
-    document.getElementById('playAudio').addEventListener('click', function () {
-        oAudio.src = "demo.mp3";
-        if (oAudio.paused) {
-            oAudio.play();
-            btnPlayAudio.textContent = "Pause";
-        }
-        else {
-            oAudio.pause();
-            btnPlayAudio.textContent = "Play";
-        }
-    });
-    document.getElementById('rewindAudio').addEventListener('click', function () {
-        oAudio.currentTime -= 30.0;
-    });
-    document.getElementById('forwardAudio').addEventListener('click', function () {
-        oAudio.currentTime += 30.0;
-    });
-    document.getElementById('restartAudio').addEventListener('click', function () {
-        oAudio.currentTime = 0;
-    });
+
+}
+
+function getRandomNumber(min, max) {
+    var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+    return ranNum;
 }
 
 function setBgImage() {
-    var bgImg = "https://unsplash.it/1024/768/?random";
+    var rand = getRandomNumber(1, 10);
+    var bgImg = "bgimages/" + rand + ".jpg";
     document.body.style.backgroundImage = "url('" + bgImg + "')";
 }
 
+function playAudio() {
+    var rand = getRandomNumber(1,4);
+
+    var audio = document.getElementById("audioPlayer");
+    var source = document.getElementById("audioSource");
+    source.src = "music/" + rand + ".mp3";
+
+    audio.load();
+    audio.play();
+}
+
 function printTime() {
+    var timer;
     var clock = window.document.getElementById("clock");
     var now = new Date();
-    var nowTime = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-    clock.innerHTML = nowTime;
-    window.setTimeout(function () {
+    var month = (now.getMonth() + 1 < 10) ? "0" + (now.getMonth() + 1) : now.getMonth() + 1;
+    var date = (now.getDate() < 10) ? " 0" + now.getDate() : now.getDate();
+    var hour = (now.getHours() < 10) ? "0" + now.getHours() : now.getHours();
+    var minutes = (now.getMinutes() < 10) ? "0" + now.getMinutes() : now.getMinutes();
+    var nowTime = now.getFullYear() + "/" + month + "/" + date + " " + hour + ":" + minutes;
+    if(now.getSeconds() == 0 || !timer) {
+        clock.innerHTML = nowTime;
+    }
+    timer = window.setTimeout(function () {
         printTime();
     }, 1000);
 }
@@ -85,6 +88,7 @@ function geoFindMe() {
     navigator.geolocation.getCurrentPosition(success, error);
 }
 
+/**
 window.addEventListener("load", windowLoaded, false);
 function windowLoaded() {
     setBgImage();
@@ -92,3 +96,20 @@ function windowLoaded() {
     geoFindMe();
     setButtonListener();
 }
+**/
+
+chrome.tabs.onUpdated.addListener(function listener(tabId, changedProps) {
+
+    chrome.tabs.getCurrent(function(tab) {
+        if (tabId != tab.id || changedProps.status != "complete")
+            return;
+        chrome.tabs.onUpdated.removeListener(listener);
+
+        setBgImage();
+        printTime();
+        geoFindMe();
+        setButtonListener();
+        playAudio();
+    });
+
+});
